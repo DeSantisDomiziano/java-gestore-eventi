@@ -1,12 +1,15 @@
 package org.event.java;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Evento {
 	private String title;
 	private LocalTime time;  
 	private int nPostiTotali;
 	private int nPostiPrenotati = 0;
+	
+	DateTimeFormatter formatter = DateTimeFormatter.ISO_TIME;
 	
 	public Evento(String title, LocalTime time, int nPostiTotali) throws Exception {
 		setTitle(title);
@@ -30,6 +33,7 @@ public class Evento {
 	public void setTime(LocalTime time) throws Exception {
 		if(this.time.now().isAfter(time))
 			throw new Exception("la data è già passata");
+		
 		this.time = time;
 	}
 
@@ -40,6 +44,7 @@ public class Evento {
 	private void setnPostiTotali(int nPostiTotali) throws Exception {
 		if(nPostiTotali < 0)
 			throw new Exception("i posti non possono essere meno di 0");
+		
 		this.nPostiTotali = nPostiTotali;
 	}
 
@@ -51,6 +56,25 @@ public class Evento {
 		this.nPostiPrenotati = nPostiPrenotati;
 	}
 	
+	 public void prenota(LocalTime data) throws Exception {
+		 if(this.time.now().isAfter(data) || (nPostiTotali - nPostiPrenotati) < 0)
+			 throw new Exception("i posti o la data sono sbagliati");
+		 
+		 nPostiTotali += 1;
+	 }
+	 
+	 public void disdici(LocalTime data) throws Exception { 
+		 if(this.time.now().isAfter(data) || nPostiPrenotati < 0)
+			 throw new Exception("i posti o la data sono sbagliati");
+		 
+		 nPostiTotali -= 1;
+	 }
+	 
+	 @Override
+	public String toString() {
+		String dateFormat = time.format(formatter);
+		return dateFormat + " - " + title;
+	}
 	 
 	
 }
