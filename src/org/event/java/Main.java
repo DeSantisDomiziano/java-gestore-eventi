@@ -1,14 +1,31 @@
 package org.event.java;
 
 import java.util.Scanner;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Main {
 	
 	public static void main(String[] args) {
+		//--------M3 Start -----------
+		LocalDate dateprova = LocalDate.now();
+		LocalTime timeprova = LocalTime.parse("19:30:30");
+		BigDecimal bd = new BigDecimal("10.001230").setScale(2, RoundingMode.HALF_UP);
+		try {
+			Concerto concerto = new Concerto("ciaoooo", dateprova, 10, timeprova, bd);
+			System.out.println(concerto);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//-------M3 End------------
 		
 		Evento event = null;
+		
+		
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("aggiungi un nuovo evento!\nscrivi il titolo dell'evento: ");
