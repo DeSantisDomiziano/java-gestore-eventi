@@ -8,7 +8,7 @@ public class Evento {
 	private int nPostiTotali;
 	private int nPostiPrenotati = 0;
 	
-	public Evento(String title, LocalTime time, int nPostiTotali) {
+	public Evento(String title, LocalTime time, int nPostiTotali) throws Exception {
 		setTitle(title);
 		setTime(time);
 		setnPostiTotali(nPostiTotali);
@@ -27,7 +27,9 @@ public class Evento {
 		return time;
 	}
 
-	public void setTime(LocalTime time) {
+	public void setTime(LocalTime time) throws Exception {
+		if(this.time.now().isAfter(time))
+			throw new Exception("la data è già passata");
 		this.time = time;
 	}
 
@@ -35,7 +37,9 @@ public class Evento {
 		return nPostiTotali;
 	}
 
-	private void setnPostiTotali(int nPostiTotali) {
+	private void setnPostiTotali(int nPostiTotali) throws Exception {
+		if(nPostiTotali < 0)
+			throw new Exception("i posti non possono essere meno di 0");
 		this.nPostiTotali = nPostiTotali;
 	}
 
@@ -47,6 +51,6 @@ public class Evento {
 		this.nPostiPrenotati = nPostiPrenotati;
 	}
 	
-	
+	 
 	
 }
