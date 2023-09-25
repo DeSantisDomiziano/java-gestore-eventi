@@ -14,7 +14,7 @@ public class Evento {
 		setTitle(title);
 		setTime(time);
 		setnPostiTotali(nPostiTotali);
-		setnPostiPrenotati(nPostiTotali);
+
 	}
 
 	public String getTitle() {
@@ -51,22 +51,20 @@ public class Evento {
 		return nPostiPrenotati;
 	}
 
-	private void setnPostiPrenotati(int nPostiPrenotati) {
-		this.nPostiPrenotati = nPostiPrenotati;
-	}
 	
-	 public void prenota(LocalDate data) throws Exception {
-		 if(this.time.now().isAfter(data) || (nPostiTotali - nPostiPrenotati) < 0)
+	 public void prenota(LocalDate data, int n) throws Exception {
+		 
+		 if(this.time.now().isAfter(data) ||nPostiTotali - nPostiPrenotati < 0)
 			 throw new Exception("i posti o la data sono sbagliati");
 		 
-		 nPostiTotali += 1;
+		 nPostiPrenotati += nPostiTotali - nPostiPrenotati > 0 ? 1 : 0;
 	 }
 	 
 	 public void disdici(LocalDate data) throws Exception { 
 		 if(this.time.now().isAfter(data) || nPostiPrenotati < 0)
 			 throw new Exception("i posti o la data sono sbagliati");
 		 
-		 nPostiTotali -= 1;
+		 nPostiPrenotati -= nPostiTotali - nPostiPrenotati > 0 ? 1 : 0;
 	 }
 	 
 	 @Override
