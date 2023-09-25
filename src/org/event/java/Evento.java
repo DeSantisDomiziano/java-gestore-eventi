@@ -6,13 +6,13 @@ import java.time.format.DateTimeFormatter;
 public class Evento {
 	
 	private String title;
-	private LocalDate time;  
+	private LocalDate date;  
 	private int nPostiTotali;
 	private int nPostiPrenotati = 0;
 	
-	public Evento(String title, LocalDate time, int nPostiTotali) throws Exception {
+	public Evento(String title, LocalDate date, int nPostiTotali) throws Exception {
 		setTitle(title);
-		setTime(time);
+		setDate(date);
 		setnPostiTotali(nPostiTotali);
 
 	}
@@ -25,15 +25,15 @@ public class Evento {
 		this.title = title;
 	}
 
-	public LocalDate getTime() {
-		return time;
+	public LocalDate getDate() {
+		return date;
 	}
 
-	public void setTime(LocalDate time) throws Exception {
-		if(this.time.now().isAfter(time))
+	public void setDate(LocalDate time) throws Exception {
+		if(this.date.now().isAfter(time))
 			throw new Exception("la data è già passata");
 		
-		this.time = time;
+		this.date = time;
 	}
 
 	public int getnPostiTotali() {
@@ -52,16 +52,16 @@ public class Evento {
 	}
 
 	
-	 public void prenota(LocalDate data, int n) throws Exception {
+	 public void prenota(LocalDate date, int n) throws Exception {
 		 
-		 if(this.time.now().isAfter(data) ||nPostiTotali - nPostiPrenotati < 0)
+		 if(this.date.now().isAfter(date) ||nPostiTotali - nPostiPrenotati < 0)
 			 throw new Exception("i posti o la data sono sbagliati");
 		 
 		 nPostiPrenotati += nPostiTotali - nPostiPrenotati > 0 ? 1 : 0;
 	 }
 	 
-	 public void disdici(LocalDate data) throws Exception { 
-		 if(this.time.now().isAfter(data) || nPostiPrenotati < 0)
+	 public void disdici(LocalDate date) throws Exception { 
+		 if(this.date.now().isAfter(date) || nPostiPrenotati < 0)
 			 throw new Exception("i posti o la data sono sbagliati");
 		 
 		 nPostiPrenotati -= nPostiTotali - nPostiPrenotati > 0 ? 1 : 0;
@@ -69,8 +69,7 @@ public class Evento {
 	 
 	 @Override
 	public String toString() {
-		 
-		return  time.format(DateTimeFormatter.ofPattern("d/MM/uuuu")) + " - " + title;
+		return  date.format(DateTimeFormatter.ofPattern("d/MM/uuuu")) + " - " + title;
 	}
 	 
 	
